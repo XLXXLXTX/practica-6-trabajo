@@ -9,6 +9,13 @@
 
 //Declaramos el texto de la opcion 1, "Cifrar un texto"
 const char MSJ_OPC_1 []  = "Nombre del fichero a cifrar: ";
+//Declaramos Mensaje de exito al acabar la opcion 1 
+const char MSJ_EXITO_PT1 []  = "El contenido del fichero '";
+const char MSJ_EXITO_C_PT2 []  = "' ha sido cifrado con clave ";
+const char MSJ_EXITO_D_PT2 []  = "' ha sido descifrado con clave ";
+const char MSJ_EXITO_PT3 []  = " y almacenado en '";
+//Declaramos el texto de la opcion 2, "Descifrar un texto"
+const char MSJ_OPC_2 []  = "Nombre del fichero a descifrar: ";
 
 //Declaramos el texto de la clave de desplazamiento para la opcion 1 y opcion 2
 const char MSJ_CLAVE []  = "Clave de desplazamiento: ";
@@ -50,6 +57,29 @@ void cifrarTexto();
  *       de desplazamiento para cifrarla y copiarla a la cadena de lineaCifrada
  */
 void cifrarLinea(const char linea [], int desplazamiento, char lineaCifrada []);
+
+
+/**
+ * PRE: ---
+ * POST: funcion que se encarga de englobar todas las ordenes necesarias 
+ *       para descifrar un texto, opcion 2 del menu, sabiendo la clave de 
+ *       desplazamiento y el nombre del fichero (que debe estar en la carpeta  
+ *       <<datos>>). Una vez acabado, el archivo descifrado se encuentra en 
+ *       la carpeta <<resultados>> y con el nombre del archivo acabado en 
+ *       "-descifrado". Si algunoo error se produce durante la lectura o 
+ *       escritura del archivo original/descifrado se muestra por pantalla 
+ *       un error especificando el fallo. 
+ */
+void descifrarTexto();
+
+
+/**
+ * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
+ *       desplazamiento y u otra cadena de texto llamada lineaDescifrada.
+ * POST: funcion que se encarga de recibir una linea de texto y un valor
+ *       de desplazamiento para descifrarla y copiarla a la cadena de lineaDescifrada
+ */
+void descifrarLinea(const char linea [], int desplazamiento, char lineaDescifrada []);
 
 
 #endif // CESAR_H_INCLUDED

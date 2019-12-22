@@ -38,7 +38,8 @@ void elegirOpcion(int opcion){
         case 1: //cout << "llamando a la funcion cifrarTexto() ..." << endl;
                 cifrarTexto();
                 break;
-        case 2: cout << "llamando a la funcion descifrarConClave...";
+        case 2: //cout << "llamando a la funcion descifrarConClave...";
+                descifrarTexto();
                 break;        
         case 3: cout << "llamando a la funcion descifradoAutomatico() ...";
                 break;
