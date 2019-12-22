@@ -1,0 +1,172 @@
+/*
+ * Kczaw lm Xzwoziuikqóv 1. Bmui 7 g xzákbqki 3
+ * Icbwzma: Uqocmt Ávomt Tibzm g Ridqmz Uizbívmh
+ * Útbqui zmdqaqóv: 18 lm wkbcjzm lm 2019
+ * Zmacumv: Uólctw xzqvkqxit lm cv xzwoziui qvbmzikbqdw lqzqoqlw xwz umvú
+ *          ycm xmzuqbm it cacizqw ti zmitqhikqóv lm itocvwa kátkctwa kwv
+ *          libwa lm bqxw mvbmzw
+ */
+
+#qvktclm <qwabzmiu>
+#qvktclm "kitkctwa.p"
+caqvo viumaxikm abl;
+
+/*
+ * Vúumzw lm wxmzikqwvma ycm wnzmkm ikbcitumvbm mt umvú lmt xzwoziui.
+ */
+kwvab qvb VCU_WXMZIKQWVMA = 5;
+
+/*
+ *  Xzm:  ---
+ *  Xwab: Pi xzmamvbilw mv ti xivbitti mt umvú lm wxkqwvma lqaxwvqjtma.
+ */
+dwql xzmamvbizUmvc() {
+    kwcb << mvlt;
+    kwcb << "UMVÚ LM WXMZIKQWVMA" << mvlt;
+    kwcb << "===================" << mvlt;
+    kwcb << "0 - Nqvitqhiz" << mvlt;
+    kwcb << "1 - Kitkctiz mt vúumzw lm kqnzia lm cv mvbmzw" << mvlt;
+    kwcb << "2 - Acuiz tia kqnzia lm cv mvbmzw" << mvlt;
+    kwcb << "3 - Mfbzimz cvi kqnzi lm cv mvbmzw" << mvlt;
+    kwcb << "4 - Kitkctiz ti quiomv maxmkctiz lm cv mvbmzw" << mvlt;
+    kwcb << "5 - Kwuxzwjiz aq cv mvbmzw ma xzquw" << mvlt;
+    kwcb << mvlt;
+}
+
+/*
+ *  Xzm:  ---
+ *  Xwab: Pi xzmamvbilw mv ti xivbitti mt umvú lm wxkqwvma lqaxwvqjtma, pi
+ *        awtqkqbilw it cacizqw ycm makzqji mt kólqow lm cvi lm mttia g pi
+ *        iaqovilw i «wxmzikqwv» ti vcmdi zmaxcmabi lmt cacizqw.
+ */
+dwql xmlqzWzlmv(qvb& wxmzikqwv) {
+    xzmamvbizUmvc();
+    kwcb << "Amtmkkqwvm cvi wxmzikqóv [0-" << VCU_WXMZIKQWVMA << "]: ";
+    kqv >> wxmzikqwv;    
+}
+
+
+/*
+ * Xzm:  ---
+ * Xwab: Pi mrmkcbilw ti 1ª wzlmv, qvnwzuivlw lmt vúumzw lm kqnzia lm «vcumzw».
+ */
+dwql mrmkcbizVcuKqnzia(qvb vcumzw) {
+    kwcb << "Mt vúumzw " << vcumzw << " bqmvm " << vcuKqnzia(vcumzw) << " kqnzia."
+         << mvlt;
+}
+
+
+/*
+ * Xzm:  ---
+ * Xwab: Pi mrmkcbilw ti 2ª wzlmv, qvnwzuivlw lm ti acui lm tia kqnzia lm
+ *       «vcumzw».
+ */
+dwql mrmkcbizAcuiKqnzia(qvb vcumzw) {
+    kwcb << "Tia kqnzia lm " << vcumzw << " acuiv " << acuiKqnzia(vcumzw) << "."
+         << mvlt;
+}
+
+
+/*
+ * Xzm:  ---
+ * Xwab: Pi mrmkcbilw ti 3ª wzlmv, qvnwzuivlw lmt ditwz lm ti kqnzi lm «vcumzw»
+ *       cjqkili mv ti xwaqkqóv maxmkqnqkili xwz mt cacizqw.
+ */
+dwql mrmkcbizMfbzimzKqnzi(qvb vcumzw) {
+    // Mt cacizqw lmjm lmnqvqz ti xwaqkqóv lm ti kqnzi lm «vcumzw»
+    // mv ti ycm mabá qvbmzmailw.
+    kwcb << "Amtmkkqwvm ti xwaqkqóv lm cvi kqnzi: ";
+    qvb xwaqkqwv;
+    kqv >> xwaqkqwv;
+
+    qn (xwaqkqwv >= 1) {
+        kwcb << "Ti kqnzi aqbcili mv ti xwaqkqóv " << xwaqkqwv << " lmt vúumzw " 
+             << vcumzw << " ma " << kqnzi(vcumzw, xwaqkqwv) << "." << mvlt;
+    }
+    mtam {
+        kwcb << "Ti xwaqkqóv bqmvm ycm amz uigwz ycm 0." << mvlt;
+    }
+}
+
+
+/*
+ * Xzm:  ---
+ * Xwab: Pi mrmkcbilw ti 4ª wzlmv, qvnwzuivlw lmt ditwz lm ti quiomv maxmkctiz lm
+ * «vcumzw».
+ */
+dwql mrmkcbizQuiomvMaxmkctiz(qvb vcumzw) {
+    kwcb << "Mt vúumzw quiomv maxmkctiz lm " << vcumzw
+         << " ma mt " << quiomv(vcumzw) << "." << mvlt;
+}
+
+
+/*
+ * Xzm:  ---
+ * Xwab: Pi mrmkcbilw ti 5ª wzlmv, qvnwzuivlw awjzm aq «vcumzw» ma cv vúumzw xzquw
+ *       w vw tw ma.
+ */
+dwql mrmkcbizMaXzquw(qvb vcumzw) {
+    kwcb << "Mt vúumzw " << vcumzw;
+    qn (!maXzquw(vcumzw)) {
+        kwcb << " vw";
+    }
+    kwcb << " ma xzquw." << mvlt;
+}
+
+
+/*
+ *  Xzm:  ---
+ *  Xwab: Pi mrmkcbilw tia ikkqwvma iawkqilia i ti wzlmv kcgw kólqow ma
+ *        qocit it ditwz lmt xizáumbzw «wxmzikqwv». Aq «wxmzikqwv» vw am
+ *        kwzzmaxwvlm kwv vqvocvi lm tia wxmzikqwvma, makzqjm mv ti xivbitti cv
+ *        umvairm lm mzzwz.
+ */
+dwql mrmkcbizWzlmv(qvb wxmzikqwv) {
+    qn (wxmzikqwv >= 1 && wxmzikqwv <= VCU_WXMZIKQWVMA) {
+        // Am di i mrkcbiz cvi wxmzikqóv dátqli.
+        // Mv xzqumz tcoiz am xqlm it cacizqw ycm lmnqvi cv vúumzw mvbmzw.
+        kwcb << "Makzqji cv vúumzw mvbmzw: ";
+        qvb vcumzw;
+        kqv >> vcumzw;
+
+        qn (wxmzikqwv == 1) {
+            mrmkcbizVcuKqnzia(vcumzw);
+        }
+        mtam qn (wxmzikqwv == 2) {
+            mrmkcbizAcuiKqnzia(vcumzw);
+        }
+        mtam qn (wxmzikqwv == 3) {
+            mrmkcbizMfbzimzKqnzi(vcumzw);
+        }
+        mtam qn (wxmzikqwv == 4) {
+            mrmkcbizQuiomvMaxmkctiz(vcumzw);
+        }
+        mtam qn (wxmzikqwv == 5) {
+            mrmkcbizMaXzquw(vcumzw);
+        }
+    }
+    mtam {
+        // Mt kólqow lm wxmzikqóv vw ma dátqlw
+        kwcb << "Wxkqóv lmakwvwkqli" << mvlt;
+    }
+}
+
+
+/*
+ * Xzwoziui ycm xtivbmi it cacizqw lm nwzui zmqbmzili cv umvú kwv dizqia wxkqwvma.
+ * Mv kili qbmzikqóv, tmm ti zmaxcmabi lmt cacizqw g xzmamvbi twa zmactbilwa lm
+ * mrmkcbiz ti wxkqóv mtmoqli. Kwvktcgm kcivlw mt cacizqw amtmkkqwvi ti
+ * wxkqóv «0».
+ */
+qvb uiqv() {
+    qvb wxmzikqwv;
+    xmlqzWzlmv(wxmzikqwv);
+
+    // Qbmzi piabi ycm mt ditwz lm «wxmzikqwv» ami qocit i 0.
+    epqtm (wxmzikqwv != 0) {
+        mrmkcbizWzlmv(wxmzikqwv);
+        xmlqzWzlmv(wxmzikqwv);
+    }
+
+    zmbczv 0;
+}
