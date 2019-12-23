@@ -18,7 +18,6 @@ using namespace std;
  *       <<modo>> y copiarla a la cadena de lineaTransformada
  */
 void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTransformada [], const char modo){
-
     //Seleccion del algoritmo para cifrar o descifrar el archivo
     int algoritmo;
     
@@ -29,33 +28,17 @@ void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTra
     }
 
     lineaTransformada[strlen(linea)] = '\0';
-   
-    int posicionAlfabeto;
-    bool buscando;
-
+    
     //Bucle para recorrer cada caracter
     for (int i=0; linea[i] != '\0'; i++){
-        
-        posicionAlfabeto = 0;
-        buscando = true;
-        
-        //Bucle para comparar si ese caracter esta en el vector de letras a cifrar
-        while( (posicionAlfabeto < strlen(ALFABETO_MINUS)) && buscando){
-            if( strchr(NO_CIFRAR, linea[i]) ){
-                lineaTransformada[i] = linea[i];
-                buscando = false;
-            }
-            if( linea[i] == ALFABETO_MINUS[posicionAlfabeto] ){
-                lineaTransformada[i] = ALFABETO_MINUS[(posicionAlfabeto + algoritmo) % strlen(ALFABETO_MINUS)];
-                buscando = false;
-            }
-            if( linea[i] == ALFABETO_MAYUS[posicionAlfabeto] ){
-                lineaTransformada[i] = ALFABETO_MAYUS[(posicionAlfabeto + algoritmo) % strlen(ALFABETO_MAYUS)];
-                buscando = false;
-            }
-            posicionAlfabeto++;
+        char c = linea[i];
+        if('a' <= c && c <= 'z'){
+            lineaTransformada[i] = 'a' + ( (c - 'a' + algoritmo) % 26);
+        }else if('A' <= c && c <= 'Z'){
+            lineaTransformada[i] = 'A' + ( (c - 'A' + algoritmo) % 26);
+        }else{
+            lineaTransformada[i] = c;
         }
-        
     }
 }
 

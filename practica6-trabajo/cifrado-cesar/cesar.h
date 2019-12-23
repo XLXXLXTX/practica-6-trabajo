@@ -33,13 +33,6 @@ const char SUFIJO_DESCIFRADO [] = "-descifrado";
 const char MODO_CIFRAR = 'c';
 const char MODO_DESCIFRAR = 'd';
 
-//Declaramos un vector con todas las letras en minusculas y mayusculas
-//const char ALFABETO [] ="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-const char ALFABETO_MINUS [] ="abcdefghijklmnopqrstuvwxyz";
-const char ALFABETO_MAYUS [] ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//Declaracion de un vector con los caracteres que no deben cifrarse
-const char NO_CIFRAR [] = " .,¿?!¡:;()áéíóúñÁÉÍÓÚÑ";
-
 
 /**
  * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado

@@ -93,6 +93,10 @@ int main(){
 //    cout << "ñ Ñ " << endl;
 //    cout << endl;
     iterarMenu();
+
+//    cout << "Valor de " << 'Z' << endl;
+//    char c = ( ('Z' + 3) % ('Z' + 1) ) + 'A';
+//    cout << "Valor de " << 'Z' << " mas 3 es: --> " << c << endl;
     
     return 0;
 
