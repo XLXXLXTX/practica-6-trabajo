@@ -8,20 +8,27 @@
 
 using namespace std;
 
-
 /**
  * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
- *       desplazamiento y u otra cadena de texto llamada lineaCifrada.
+ *       desplazamiento, otra cadena de texto llamada lineaTransformada y
+ *       finalmente un char llamdo modo que sera el encargado de elegir que algoritmo
+ *       usar: si el de cifrar o el de descifrar 
  * POST: funcion que se encarga de recibir una linea de texto y un valor
- *       de desplazamiento para cifrarla y copiarla a la cadena de lineaCifrada
+ *       de desplazamiento para cifrarla/descifrarla segund el valor del caracter
+ *       <<modo>> y copiarla a la cadena de lineaTransformada
  */
-void cifrarLinea(const char linea [], int desplazamiento, char lineaCifrada []){
-     
-    //---------------------------
-//    cout << "linea" << endl;
-//    cout << linea << endl;
+void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTransformada [], const char modo){
+
+    //Seleccion del algoritmo para cifrar o descifrar el archivo
+    int algoritmo;
     
-    lineaCifrada[strlen(linea)] = '\0';
+    if(modo == MODO_CIFRAR){
+        algoritmo = desplazamiento;
+    }if(modo == MODO_DESCIFRAR){
+        algoritmo = 26 - desplazamiento;
+    }
+
+    lineaTransformada[strlen(linea)] = '\0';
    
     int posicionAlfabeto;
     bool buscando;
@@ -35,26 +42,21 @@ void cifrarLinea(const char linea [], int desplazamiento, char lineaCifrada []){
         //Bucle para comparar si ese caracter esta en el vector de letras a cifrar
         while( (posicionAlfabeto < strlen(ALFABETO_MINUS)) && buscando){
             if( strchr(NO_CIFRAR, linea[i]) ){
-                lineaCifrada[i] = linea[i];
+                lineaTransformada[i] = linea[i];
                 buscando = false;
             }
-            
             if( linea[i] == ALFABETO_MINUS[posicionAlfabeto] ){
-                lineaCifrada[i] = ALFABETO_MINUS[(posicionAlfabeto + desplazamiento) % strlen(ALFABETO_MINUS)];
+                lineaTransformada[i] = ALFABETO_MINUS[(posicionAlfabeto + algoritmo) % strlen(ALFABETO_MINUS)];
                 buscando = false;
             }
             if( linea[i] == ALFABETO_MAYUS[posicionAlfabeto] ){
-                lineaCifrada[i] = ALFABETO_MAYUS[(posicionAlfabeto + desplazamiento) % strlen(ALFABETO_MAYUS)];
+                lineaTransformada[i] = ALFABETO_MAYUS[(posicionAlfabeto + algoritmo) % strlen(ALFABETO_MAYUS)];
                 buscando = false;
             }
- 
             posicionAlfabeto++;
         }
+        
     }
-    
-    //---------------------------
-//    cout << "cifrada" << endl;
-//    cout << lineaCifrada << endl;
 }
 
 
@@ -116,7 +118,7 @@ void cifrarTexto(){
                 strcpy(cifrada, vacia);
                 
                 //FALTA SOLUCIONAR COMO LIDIAR CON LAS TABULACIONES YA QUE NO SE PUEDEN CONTAR COMO VARIOS ESPACIOS JUNTOS ???
-                cifrarLinea(lineaACifrar, claveDesplazamiento, cifrada);
+                cifrarODescifarLinea(lineaACifrar, claveDesplazamiento, cifrada, MODO_CIFRAR);
                 
                 ficheroDestino << cifrada << endl;
                 
@@ -130,51 +132,6 @@ void cifrarTexto(){
         ficheroDestino.close();
     }
     ficheroOriginal.close();
-}
-
-
-/**
- * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
- *       desplazamiento y u otra cadena de texto llamada lineaDescifrada.
- * POST: funcion que se encarga de recibir una linea de texto y un valor
- *       de desplazamiento para descifrarla y copiarla a la cadena de lineaDescifrada
- */
-void descifrarLinea(const char linea [], int desplazamiento, char lineaDescifrada []){
-         
-    //---------------------------
-//    cout << "linea" << endl;
-//    cout << linea << endl;
-    
-    lineaDescifrada[strlen(linea)] = '\0';
-   
-    int posicionAlfabeto;
-    bool buscando;
-
-    //Bucle para recorrer cada caracter
-    for (int i=0; linea[i] != '\0'; i++){
-        
-        posicionAlfabeto = 0;
-        buscando = true;
-        
-        //Bucle para comparar si ese caracter esta en el vector de letras a cifrar
-        while( (posicionAlfabeto < strlen(ALFABETO_MINUS)) && buscando){
-            if( strchr(NO_CIFRAR, linea[i]) ){
-                lineaDescifrada[i] = linea[i];
-                buscando = false;
-            }
-            
-            if( linea[i] == ALFABETO_MINUS[posicionAlfabeto] ){
-                lineaDescifrada[i] = ALFABETO_MINUS[(posicionAlfabeto + (26 - desplazamiento ) ) % strlen(ALFABETO_MINUS)];
-                buscando = false;
-            }
-            if( linea[i] == ALFABETO_MAYUS[posicionAlfabeto] ){
-                lineaDescifrada[i] = ALFABETO_MAYUS[(posicionAlfabeto + (26 - desplazamiento ) ) % strlen(ALFABETO_MAYUS)];
-                buscando = false;
-            }
- 
-            posicionAlfabeto++;
-        }
-    }
 }
 
 
@@ -197,7 +154,7 @@ void descifrarTexto(){
     strcpy(rutaOrigen, DIR_DATOS);
     strcpy(rutaDestino, DIR_RESULTADOS);
     
-    pedirNombreFichero(MSJ_OPC_2, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
+    pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
 
     cout << MSJ_CLAVE;
     int claveDesplazamiento;
@@ -223,25 +180,21 @@ void descifrarTexto(){
             char descifrada [200];
             
             while(!ficheroOriginal.eof()){
-            char vacia [200] = "";
-            strcpy(descifrada, vacia);
+                char vacia [200] = "";
+                strcpy(descifrada, vacia);
+                    
+                cifrarODescifarLinea(lineaADescifrar, claveDesplazamiento, descifrada, MODO_DESCIFRAR);
                 
-            
-            descifrarLinea(lineaADescifrar, claveDesplazamiento, descifrada);
-            
-            ficheroDestino << descifrada << endl;
-                
-            strcpy(lineaADescifrar, vacia);
-            ficheroOriginal.getline(lineaADescifrar, 200);
+                ficheroDestino << descifrada << endl;
+                    
+                strcpy(lineaADescifrar, vacia);
+                ficheroOriginal.getline(lineaADescifrar, 200);
                 
             }
-            
             cout << MSJ_EXITO_PT1 << rutaOrigen << MSJ_EXITO_D_PT2 << claveDesplazamiento << MSJ_EXITO_PT3<< rutaDestino << "'" << endl;
         }
-        
         ficheroDestino.close();
     }
-    
     ficheroOriginal.close();
 }
 

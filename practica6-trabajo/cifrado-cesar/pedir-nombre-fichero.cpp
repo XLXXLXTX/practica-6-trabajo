@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <pedir-nombre-fichero.h>
+#include <cesar.h>
 
 using namespace std;
 /*

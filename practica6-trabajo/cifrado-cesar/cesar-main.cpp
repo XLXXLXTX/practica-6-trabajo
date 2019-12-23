@@ -13,6 +13,7 @@
 //Incluimos el archivo con el metodo de pedir-nombre-fichero
 #include "pedir-nombre-fichero.h"
 #include "cesar.h"
+#include "analisis-cesar.h"
 
 using namespace std;
 
@@ -43,7 +44,8 @@ void elegirOpcion(int opcion){
                 break;        
         case 3: cout << "llamando a la funcion descifradoAutomatico() ...";
                 break;
-        case 4: cout << "llamando a la funcion analizarProbabilidad() ..." ;
+        case 4: //cout << "llamando a la funcion analizarProbabilidad() ..." ;
+                //analizarClavesAutomaticamente();
                 break;
                 
     }

@@ -9,13 +9,14 @@
 
 //Declaramos el texto de la opcion 1, "Cifrar un texto"
 const char MSJ_OPC_1 []  = "Nombre del fichero a cifrar: ";
-//Declaramos Mensaje de exito al acabar la opcion 1 
+//Declaramos el texto de la opcion 2,3 y 4; "Descifrar un texto"
+const char MSJ_OPC_2_3_4 []  = "Nombre del fichero a descifrar: ";
+
+//Declaramos Mensaje de exito al acabar la opcion 1 o 2
 const char MSJ_EXITO_PT1 []  = "El contenido del fichero '";
 const char MSJ_EXITO_C_PT2 []  = "' ha sido cifrado con clave ";
 const char MSJ_EXITO_D_PT2 []  = "' ha sido descifrado con clave ";
 const char MSJ_EXITO_PT3 []  = " y almacenado en '";
-//Declaramos el texto de la opcion 2, "Descifrar un texto"
-const char MSJ_OPC_2 []  = "Nombre del fichero a descifrar: ";
 
 //Declaramos el texto de la clave de desplazamiento para la opcion 1 y opcion 2
 const char MSJ_CLAVE []  = "Clave de desplazamiento: ";
@@ -28,12 +29,28 @@ const char ERROR_FICH_DESTINO [] = "No ha podido crearse el fichero '";
 const char SUFIJO_CIFRADO [] = "-cifrado";
 const char SUFIJO_DESCIFRADO [] = "-descifrado";
 
+//Declaramos variables para saber si estamos en modo descifrar o cifrar
+const char MODO_CIFRAR = 'c';
+const char MODO_DESCIFRAR = 'd';
+
 //Declaramos un vector con todas las letras en minusculas y mayusculas
 //const char ALFABETO [] ="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
 const char ALFABETO_MINUS [] ="abcdefghijklmnopqrstuvwxyz";
 const char ALFABETO_MAYUS [] ="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 //Declaracion de un vector con los caracteres que no deben cifrarse
 const char NO_CIFRAR [] = " .,¿?!¡:;()áéíóúñÁÉÍÓÚÑ";
+
+
+/**
+ * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
+ *       desplazamiento, otra cadena de texto llamada lineaTransformada y
+ *       finalmente un char llamdo modo que sera el encargado de elegir que algoritmo
+ *       usar: si el de cifrar o el de descifrar 
+ * POST: funcion que se encarga de recibir una linea de texto y un valor
+ *       de desplazamiento para cifrarla/descifrarla segund el valor del caracter
+ *       <<modo>> y copiarla a la cadena de lineaTransformada
+ */
+void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTransformada [], const char modo);
 
 
 /**
@@ -51,15 +68,6 @@ void cifrarTexto();
 
 
 /**
- * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
- *       desplazamiento y u otra cadena de texto llamada lineaCifrada.
- * POST: funcion que se encarga de recibir una linea de texto y un valor
- *       de desplazamiento para cifrarla y copiarla a la cadena de lineaCifrada
- */
-void cifrarLinea(const char linea [], int desplazamiento, char lineaCifrada []);
-
-
-/**
  * PRE: ---
  * POST: funcion que se encarga de englobar todas las ordenes necesarias 
  *       para descifrar un texto, opcion 2 del menu, sabiendo la clave de 
@@ -71,15 +79,6 @@ void cifrarLinea(const char linea [], int desplazamiento, char lineaCifrada []);
  *       un error especificando el fallo. 
  */
 void descifrarTexto();
-
-
-/**
- * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
- *       desplazamiento y u otra cadena de texto llamada lineaDescifrada.
- * POST: funcion que se encarga de recibir una linea de texto y un valor
- *       de desplazamiento para descifrarla y copiarla a la cadena de lineaDescifrada
- */
-void descifrarLinea(const char linea [], int desplazamiento, char lineaDescifrada []);
 
 
 #endif // CESAR_H_INCLUDED

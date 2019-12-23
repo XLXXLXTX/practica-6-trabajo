@@ -18,8 +18,8 @@
  * limitaciones para trabajar con UTF-8 en C++ y con los compiladores utilizados,
  * sin eñes ni diacríticos.
  */
-const char FICH_DICCIONARIO[] = "../../datos/diccionario.dic";
-
+//const char FICH_DICCIONARIO[] = "../../datos/diccionario.dic";
+const char FICH_DICCIONARIO[] = "./datos/diccionario.dic";
 
 /*
  * Pre:  «nombreFichero» es una cadena de caracteres cuyo valor representa el
