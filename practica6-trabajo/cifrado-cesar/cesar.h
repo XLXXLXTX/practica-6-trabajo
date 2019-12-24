@@ -4,8 +4,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 
 #include "pedir-nombre-fichero.h"
+
+//Declaramos la longitud maxima de cada linea a cifrar/descifrar
+const int MAX_LONG_LINEA = 250;
 
 //Declaramos el texto de la opcion 1, "Cifrar un texto"
 const char MSJ_OPC_1 []  = "Nombre del fichero a cifrar: ";

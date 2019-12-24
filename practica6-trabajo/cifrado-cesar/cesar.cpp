@@ -91,13 +91,13 @@ void cifrarTexto(){
             cout << endl;
             //Aqui ya empezariamos a leer una linea del fichero
             //cifrarla y copiarla al fichero de destino 
-            char lineaACifrar [200];
-            ficheroOriginal.getline(lineaACifrar, 200);
+            char lineaACifrar [MAX_LONG_LINEA];
+            ficheroOriginal.getline(lineaACifrar, MAX_LONG_LINEA);
             
-            char cifrada [200];
+            char cifrada [MAX_LONG_LINEA];
             
             while(!ficheroOriginal.eof()){
-                char vacia [200] = "";
+                char vacia [MAX_LONG_LINEA] = "";
                 strcpy(cifrada, vacia);
                 
                 //FALTA SOLUCIONAR COMO LIDIAR CON LAS TABULACIONES YA QUE NO SE PUEDEN CONTAR COMO VARIOS ESPACIOS JUNTOS ???
@@ -106,7 +106,7 @@ void cifrarTexto(){
                 ficheroDestino << cifrada << endl;
                 
                 strcpy(lineaACifrar, vacia);
-                ficheroOriginal.getline(lineaACifrar, 200);
+                ficheroOriginal.getline(lineaACifrar, MAX_LONG_LINEA);
                 
             }
             
@@ -157,13 +157,13 @@ void descifrarTexto(){
         }else{
             cout << endl;
             
-            char lineaADescifrar [200];
-            ficheroOriginal.getline(lineaADescifrar, 200);
+            char lineaADescifrar [MAX_LONG_LINEA];
+            ficheroOriginal.getline(lineaADescifrar, MAX_LONG_LINEA);
             
-            char descifrada [200];
+            char descifrada [MAX_LONG_LINEA];
             
             while(!ficheroOriginal.eof()){
-                char vacia [200] = "";
+                char vacia [MAX_LONG_LINEA] = "";
                 strcpy(descifrada, vacia);
                     
                 cifrarODescifarLinea(lineaADescifrar, claveDesplazamiento, descifrada, MODO_DESCIFRAR);
@@ -171,7 +171,7 @@ void descifrarTexto(){
                 ficheroDestino << descifrada << endl;
                     
                 strcpy(lineaADescifrar, vacia);
-                ficheroOriginal.getline(lineaADescifrar, 200);
+                ficheroOriginal.getline(lineaADescifrar, MAX_LONG_LINEA);
                 
             }
             cout << MSJ_EXITO_PT1 << rutaOrigen << MSJ_EXITO_D_PT2 << claveDesplazamiento << MSJ_EXITO_PT3<< rutaDestino << "'" << endl;

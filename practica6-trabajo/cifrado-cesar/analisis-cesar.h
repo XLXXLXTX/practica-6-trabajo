@@ -7,6 +7,7 @@
 #include <istream>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 
 #include "pedir-nombre-fichero.h"
 
@@ -23,39 +24,65 @@ struct Clave {
     double porcentaje;
 };
 
+/**
+ * PRE:  una = A y otra = B
+ * POST: una = B y otra = A
+ */
+void permutarClaves (Clave &una, Clave &otra);
+
 
 /**
- * PRE: ----
+ * PRE:  Recibe una lista de registro de tipo Clave como una constante, y otra 
+ *       lista del mismo tipo de dato llamada infoClavesOrdenadas en la que 
+ *       se guardara los valores de la primera pero ordenados.
+ * POST: Se ordenan los registro de tipo Clave de la lista infoClaves de menor 
+ *       a mayor segun el porcentaje que lleva asigando cada registro, y se 
+ *       guardan ordenados en infoClavesOrdenadas. 
+ */
+void ordenarClaves(const Clave infoClaves [], Clave infoClavesOrdenadas []);
+
+
+/**
+ * PRE:  Se le pasa una vector de registros de tipo Clave el cual es constante
+ *       y no se podra modificar en este metodo
  * POST: Muestra por pantalla un listado con el formato mas adecuado para que 
  *       que el usuario visualice la lista de las 26 claves posibles a usar 
  *       para descifrar el fichero, con un porcentaje de exito y el numero 
  *       total de palabras de cada clave que son reconocidas en el archivo 
- *       diccionario.dic
+ *       diccionario.dic.
  */
 void mostrarListadoClaves(const Clave infoClaves []);
 
 
 /**
- * PRE:  funicion a la que se le pasan 3 variables: la variables claveAIntentar de tipo Clave
- *       el flujo llamado fOriginal que es flujo del archivo original cifrado para leer de el
- *       y finalmente el flujo de escritura fTemp del archivo temporal donde se escribira el 
- *       contenido de fOriginal pero descifrado con el valor k que esta en claveAIntentar.valor 
- * POST: funcion que se encarga de probar la clave k (0 <= k < 26) y crear el archivo temporal
- *       decifrado en esa clave para usarlo mas adelante 
+ * PRE:  Se le para un registro de tipo Clave, en el cual solo esta definida
+ *       el campo claveAIntentar.valor donde se guarda el valor de la clave k,
+ *       el numero de palabras encontradas y el porcentaje de entre palabras 
+ *       encontradas y el total de palabras del archvio a descifrar tambien se 
+ *       le pasa como constante el vector de char [] rutaTemp que es donde 
+ *       se generan los archivos temporales del descifrado con la clave k.
+ * POST: Funcion que se encarga de analizar el archivo temporal creado para 
+ *       la clave k (0 <= k < 26) a traves de la busqueda de palabras
+ *       en el archivo diccionario.dicc.
+ */
+void analizarFuerzaBruta(Clave& claveAIntentar, const char rutaTemp[]);
+
+/**
+ * PRE:  Se le pasa a esta funcion las variables claveAIntentar como
+ *       constante, de donde sacamos el valor de la clave k, el flujo 
+ *       fOriginal (que es el flujo de lectura del fichero a descifar)
+ *       y el flujo de fTemp ( el flujo del fichero temporal donde se 
+ *       descifra usando la clave k).
+ * POST: Funcion que se encarga de probar la clave k (0 <= k < 26) y 
+ *       crear el archivo temporal decifrado en esa clave para usarlo 
+ *       mas adelante.
  */
 void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstream& fTemp);
 
 
 /**
  * PRE: ---
- * POST: funcion que se encarga de analizar el archivo temporal creado para la clave k (0 <= k < 26) 
- *       a traves de la busqueda de palabras en el archivo diccionario.dicc
- */
-void analizarFuerzaBruta(Clave& claveAIntentar, const char rutaTemp[]);
-
-/**
- * PRE: ---
- * POST: funcion que se encarga de englobar todas las ordenes necesarias 
+ * POST: Funcion que se encarga de englobar todas las ordenes necesarias 
  *       para hacer el analisis de todas las posibles clave k (0 <= k < 26), 
  *       opcion 4 del menu, sabiendo el nombre del fichero (que debe estar 
  *       en la carpeta <<datos>>). Una vez acabado, se muestra por pantalla 

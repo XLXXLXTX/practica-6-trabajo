@@ -10,6 +10,7 @@
 
 //Para el system(CLS)
 #include <stdlib.h>
+
 //Incluimos el archivo con el metodo de pedir-nombre-fichero
 #include "pedir-nombre-fichero.h"
 #include "cesar.h"
@@ -17,6 +18,11 @@
 
 using namespace std;
 
+
+/**
+ * PRE:  ---
+ * POST: Muestra por pantalla las posibles opciones del programa.  
+ */
 void mostrarMenu(){
     cout << "MENU DE OPERACIONES" << endl;
     cout << "===================" << endl;
@@ -29,7 +35,12 @@ void mostrarMenu(){
     cout << endl;
 }
 
-void elegirOpcion(int opcion){
+/**
+ * PRE:  Se le pasa un entero como constante llamado opcion. 
+ * POST: Segun el valor de la variable opcion, se llama al metodo que necesario 
+ *       para la opcion seleccionada.
+ */
+void elegirOpcion(const int opcion){
     //Limpiamos la pantalla para que no se solape el menu con el mensaje de la opcion elegida
     //Funciona en la consola de windows
     system ("CLS");
@@ -45,14 +56,21 @@ void elegirOpcion(int opcion){
         case 3: cout << "llamando a la funcion descifradoAutomatico() ...";
                 break;
         case 4: //cout << "llamando a la funcion analizarProbabilidad() ..." ;
-                //analizarClavesAutomaticamente();
+                analizarClavesAutomaticamente();
                 break;
-                
     }
     cout << endl;
 }
 
-
+/**
+ * PRE:  ---
+ * POST: Metodo que muestra en bucle el menu de opciones del programa hasta que 
+ *       se introduce por teclado el numero de una opcion valida (1-4), si se 
+ *       introduce el valor 0, el programa finaliza. Mientras se introduzcan 
+ *       valores fuera de los valores comprendido de n, siendo estos 0<= n <=4, 
+ *       se mostrara un mensaje de error diciendo que la opcion no es valida.
+ *       
+ */
 void iterarMenu(){
     int opcion;
     do{
@@ -93,10 +111,6 @@ int main(){
 //    cout << "ñ Ñ " << endl;
 //    cout << endl;
     iterarMenu();
-
-//    cout << "Valor de " << 'Z' << endl;
-//    char c = ( ('Z' + 3) % ('Z' + 1) ) + 'A';
-//    cout << "Valor de " << 'Z' << " mas 3 es: --> " << c << endl;
     
     return 0;
 
