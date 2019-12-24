@@ -47,17 +47,20 @@ void elegirOpcion(const int opcion){
     system ("CLS");
     
     switch(opcion){
-        char falsePath [MAX_LONG_NOMBRE_FICHERO];
+//        char falsePath [MAX_LONG_NOMBRE_FICHERO];
         //1 --> cifrarTexto()
         case 1: //cout << "llamando a la funcion cifrarTexto() ..." << endl;
-                cifrarTexto();
+//                cifrarTexto();
+                prepararCifrarTexto();
                 break;
         case 2: //cout << "llamando a la funcion descifrarConClave...";
-                descifrarTexto(CLAVE_SEGUN_USUARIO, falsePath, falsePath);
+//                descifrarTexto();
+                prepararDescifrarTexto();
                 break;        
-        case 3: descifrarAutomaticamente();
+        case 3: prepararDescrifrarAutomaticamente();
                 break;
-        case 4: int k = analizarClavesAutomaticamente(4, falsePath, falsePath);
+        case 4: //int k = analizarClavesAutomaticamente(4, falsePath, falsePath);
+                prepararAnalizarAutomaticamente();
                 break;
     }
     cout << endl;

@@ -36,7 +36,9 @@ const char SUFIJO_DESCIFRADO [] = "-descifrado";
 //Declaramos variables para saber si estamos en modo descifrar o cifrar
 const char MODO_CIFRAR = 'c';
 const char MODO_DESCIFRAR = 'd';
-const int CLAVE_SEGUN_USUARIO = -999;
+
+
+const int CLAVE_SEGUN_ANALISIS = -999;
 
 /**
  * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
@@ -51,7 +53,16 @@ void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTra
 
 
 /**
- * PRE: ---
+ * PRE:  ---
+ * POST: ---
+ */
+ void pedirDatos(const int opcion, int& claveDesplazamiento, char origenUsu [], char destinoUsu []);
+ 
+
+/**
+ * PRE:  Se le pasan los datos con los que se va a cifrar el texto, que son:
+ *       la clave de desplazamiento, la ruta de origne del archivo y la ruta 
+ *       de destino del archivo al terminar el cifrado.
  * POST: funcion que se encarga de englobar todas las ordenes necesarias 
  *       para cifrar un texto, opcion 1 del menu, sabiendo la clave de 
  *       desplazamiento y el nombre del fichero (que debe estar en la carpeta  
@@ -61,7 +72,7 @@ void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTra
  *       escritura del archivo original/cifrado se muestra por pantalla 
  *       un error especificando el fallo. 
  */
-void cifrarTexto();
+void cifrarTexto(const int claveDesplazamiento, const char origenUsu [], const char destinoUsu []);
 
 
 /**
@@ -82,7 +93,22 @@ void cifrarTexto();
  *       escritura del archivo original/descifrado se muestra por pantalla 
  *       un error especificando el fallo. 
  */
-void descifrarTexto(const int clave, const char rutaOrigenConocida [], const char rutaDestinoConocida []);
+//void descifrarTexto(const int clave, const char rutaOrigenConocida [], const char rutaDestinoConocida []);
+void descifrarTexto(const int claveDesplazamiento, const char rutaOrigen [], const char rutaDestino []);
+
+
+/**
+ * PRE:  ---
+ * POST: ---
+ */
+void prepararCifrarTexto();
+
+
+/**
+ * PRE:  ---
+ * POST: ---
+ */
+void prepararDescifrarTexto();
 
 
 #endif // CESAR_H_INCLUDED

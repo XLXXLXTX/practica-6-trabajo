@@ -198,18 +198,18 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
  *       valor es 0<=n<26 para indicar cual es la clave con mas porcentaje de 
  *       coincidencias al descifrar;
  */
-int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], char rutaDestinoConocida []){
+void analizarClavesAutomaticamente(const int opcion, char rutaOrigen [], char rutaDestino [], int& claveExito){
     
-    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
-    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
-    
-    strcpy(rutaOrigen, DIR_DATOS);
-    strcpy(rutaDestino, RUTA_TEMP);
-    
-    pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_TEMP, rutaOrigen, rutaDestino);
-    
-    strcpy(rutaOrigenConocida, rutaOrigen);
-    strcpy(rutaDestinoConocida, rutaDestino);
+//    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+//    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+//    
+//    strcpy(rutaOrigen, DIR_DATOS);
+//    strcpy(rutaDestino, RUTA_TEMP);
+//    
+//    pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_TEMP, rutaOrigen, rutaDestino);
+//    
+//    strcpy(rutaOrigenConocida, rutaOrigen);
+//    strcpy(rutaDestinoConocida, rutaDestino);
     
     ifstream ficheroOriginal;
     
@@ -290,7 +290,8 @@ int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], 
         mostrarListadoClaves(infoClavesOrdenadas);
     }    
     
-    return infoClavesOrdenadas[TOTAL_CLAVES-1].valor;
+    claveExito = infoClavesOrdenadas[TOTAL_CLAVES-1].valor;
+//    return infoClavesOrdenadas[TOTAL_CLAVES-1].valor;
 }
 
 /**
@@ -300,9 +301,40 @@ int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], 
  *       solo dejandole que introduza el fichero a descifrar
  */
 void descifrarAutomaticamente(){
-    char rutaOrigenConocida [MAX_LONG_NOMBRE_FICHERO];
-    char rutaDestinoConocida [MAX_LONG_NOMBRE_FICHERO];
+    int claveExito;
+    int claveDesplazamiento;
+    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
     
-    int clave  = analizarClavesAutomaticamente(3, rutaOrigenConocida, rutaDestinoConocida);
-    descifrarTexto(clave, rutaOrigenConocida, rutaDestinoConocida);
+    pedirDatos(3, claveDesplazamiento, rutaOrigen, rutaDestino);
+    
+    analizarClavesAutomaticamente(3, rutaOrigen, rutaDestino, claveExito);
+    descifrarTexto(claveExito, rutaOrigen, rutaDestino);
+}
+
+
+/**
+ * PRE:  ---
+ * POST: ---
+ */
+void prepararAnalizarAutomaticamente(){
+    int claveExito;
+    int claveDesplazamiento;
+    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+    
+    pedirDatos(4, claveDesplazamiento, rutaOrigen, rutaDestino);
+    
+    analizarClavesAutomaticamente(4, rutaOrigen, rutaDestino, claveExito);
+    
+//    descifrarTexto(claveDesplazamiento, rutaOrigen, rutaDestino);
+}
+
+
+/**
+ * PRE:  ---
+ * POST: ---
+ */ 
+void prepararDescrifrarAutomaticamente(){
+   
 }

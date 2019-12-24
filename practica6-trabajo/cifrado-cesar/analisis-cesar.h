@@ -13,8 +13,10 @@
 
 const int MIN_ANCHO = 3;
 const int TOTAL_CLAVES = 26;
-const char SUFIJO_TEMP [] = "-descifrado-temp";
-const char RUTA_TEMP []= "./resultados/temp/";
+//const char SUFIJO_TEMP [] = "-descifrado-temp";
+//const char RUTA_TEMP []= "./resultados/temp";
+const char SUFIJO_TEMP [] = "-descifrado";
+const char RUTA_TEMP []= "./resultados/";
 
 using namespace std;
 
@@ -87,7 +89,11 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
  *       analisis; tambien se le pasa una cadena de caracteres llamada ruta 
  *       en la que se guardara la rutaOrigenConocida y rutaDestinoConocida 
  *       del archivo a analizar, ya que asi, no se necesitara que se vuelva  
- *       a pedir en otro metodo como podira ser descifrarAutomaticamente();   
+ *       a pedir en otro metodo como podira ser descifrarAutomaticamente(),
+ *       tambien se le pasa finalamente una variables donde guardaremos la 
+ *       clave que mas porcentaje de exito da, que es la que esta en la ultima 
+ *       posicion del vector de tipo Claves al ser ordenador para mostrarlo por 
+ *       pantalla.
  * POST: Funcion que se encarga de englobar todas las ordenes necesarias 
  *       para hacer el analisis de todas las posibles clave k (0 <= k < 26), 
  *       opcion 4 del menu, sabiendo el nombre del fichero (que debe estar 
@@ -99,7 +105,7 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
  *       valor es 0<=n<26 para indicar cual es la clave con mas porcentaje de 
  *       coincidencias al descifrar;
  */
-int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], char rutaDestinoConocida []);
+void analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], char rutaDestinoConocida [], int& claveExito);
 
 
 /**
@@ -109,5 +115,19 @@ int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], 
  *       solo dejandole que introduza el fichero a descifrar
  */
 void descifrarAutomaticamente();
-    
+
+
+/**
+ * PRE:  ---
+ * POST: ---
+ */ 
+void prepararAnalizarAutomaticamente();
+
+
+/**
+ * PRE:  ---
+ * POST: ---
+ */ 
+void prepararDescrifrarAutomaticamente();
+
 #endif // ANALISIS_CESAR_H_INCLUDED

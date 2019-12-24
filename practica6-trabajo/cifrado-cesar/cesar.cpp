@@ -42,6 +42,46 @@ void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTra
     }
 }
 
+//----------------------------------------------------------------------------------------------------
+/**
+ * PRE:  ---
+ * POST: ---
+ */
+ void pedirDatos(const int opcion, int& claveDesplazamiento, char origenUsu [], char destinoUsu []){
+     
+     //Establecemos las variables donde se va a montar la ruta + nombreFichero
+    //que va a dar el ususario en el metodo "pedirFichero()"
+    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+    strcpy(rutaOrigen, DIR_DATOS);
+    strcpy(rutaDestino, DIR_RESULTADOS);
+    
+    //Llamamos a la funcion de pedirFichero para leer el archivo de teclado
+    //del ususario y la clave dependiendo de la opcion que se elija se daran 
+    //unos valores u otros
+    switch(opcion){
+        case 1: pedirNombreFichero(MSJ_OPC_1, SUFIJO_CIFRADO, rutaOrigen, rutaDestino);
+                cout << MSJ_CLAVE;
+                cin >> claveDesplazamiento;
+                break;
+        case 2: pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
+                cout << MSJ_CLAVE;
+                cin >> claveDesplazamiento;
+                break;
+        case 3: pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
+                claveDesplazamiento = CLAVE_SEGUN_ANALISIS;
+                break;
+        case 4: pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
+                break;
+    }
+    
+    //Establecemos las variables donde se va a montar la ruta + nombreFichero
+    //que va a dar el ususario en el metodo "pedirFichero()"
+    strcpy(origenUsu, rutaOrigen);
+    strcpy(destinoUsu, rutaDestino);
+ }
+
+//----------------------------------------------------------------------------------------------------
 
 /**
  * PRE: ---
@@ -54,25 +94,26 @@ void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTra
  *       escritura del archivo original/cifrado se muestra por pantalla 
  *       un error especificando el fallo. 
  */
-void cifrarTexto(){
+ void cifrarTexto(const int claveDesplazamiento, const char rutaOrigen [], const char rutaDestino []){
+//void cifrarTexto(){
     //Establecemos las variables donde se va a montar la ruta + nombreFichero
     //que va a dar el ususario en el metodo "pedirFichero()"
-    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
-    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
-    
-    strcpy(rutaOrigen, DIR_DATOS);
-    strcpy(rutaDestino, DIR_RESULTADOS);
+//    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+//    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+
+//    strcpy(rutaOrigen, DIR_DATOS);
+//    strcpy(rutaDestino, DIR_RESULTADOS);
     
     //Llamamos a la funcion de pedirFichero para leer el archivo de teclado
     //del ususario
-    pedirNombreFichero(MSJ_OPC_1, SUFIJO_CIFRADO, rutaOrigen, rutaDestino);
+//    pedirNombreFichero(MSJ_OPC_1, SUFIJO_CIFRADO, rutaOrigen, rutaDestino);
 
 
     //Establecemos las variables donde se va a montar la ruta + nombreFichero
     //que va a dar el ususario en el metodo "pedirFichero()"
-    cout << MSJ_CLAVE;
-    int claveDesplazamiento;
-    cin >> claveDesplazamiento;
+//    cout << MSJ_CLAVE;
+//    int claveDesplazamiento;
+//    cin >> claveDesplazamiento;
 
 
     //Se procede a abrir el archivo indicado por el ususario
@@ -136,25 +177,30 @@ void cifrarTexto(){
  *       escritura del archivo original/descifrado se muestra por pantalla 
  *       un error especificando el fallo. 
  */
-void descifrarTexto(const int clave, const char rutaOrigenConocida [], const char rutaDestinoConocida []){
+//void descifrarTexto(const int clave, const char rutaOrigenConocida [], const char rutaDestinoConocida []){
+//void descifrarTexto(){
+void descifrarTexto(const int claveDesplazamiento, const char rutaOrigen [], const char rutaDestino []){
     
-    int claveDesplazamiento;
-    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
-    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
-    
-    if(clave == CLAVE_SEGUN_USUARIO){
-        strcpy(rutaOrigen, DIR_DATOS);
-        strcpy(rutaDestino, DIR_RESULTADOS);
-    
-        pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
-    
-        cout << MSJ_CLAVE;
-        cin >> claveDesplazamiento;
-    }else{
-        strcpy(rutaOrigen, rutaOrigenConocida);
-        strcpy(rutaDestino, rutaDestinoConocida);
-        claveDesplazamiento = clave;
-    }
+//    int claveDesplazamiento;
+//    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+//    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+//    
+//    pedirDatos(2, claveDesplazamiento, rutaOrigen, rutaDestino);
+//    
+//    
+//    if(clave == CLAVE_SEGUN_USUARIO){
+//        strcpy(rutaOrigen, DIR_DATOS);
+//        strcpy(rutaDestino, DIR_RESULTADOS);
+//    
+//        pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_DESCIFRADO, rutaOrigen, rutaDestino);
+//    
+//        cout << MSJ_CLAVE;
+//        cin >> claveDesplazamiento;
+//    }else{
+//        strcpy(rutaOrigen, rutaOrigenConocida);
+//        strcpy(rutaDestino, rutaDestinoConocida);
+//        claveDesplazamiento = clave;
+//    }
     
     ifstream ficheroOriginal;
     ficheroOriginal.open(rutaOrigen);
@@ -194,5 +240,27 @@ void descifrarTexto(const int clave, const char rutaOrigenConocida [], const cha
     ficheroOriginal.close();
 }
 
+
+void prepararCifrarTexto(){
+    
+    int claveDesplazamiento;
+    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+    
+    pedirDatos(1, claveDesplazamiento, rutaOrigen, rutaDestino);
+    
+    cifrarTexto(claveDesplazamiento, rutaOrigen, rutaDestino);
+}
+
+void prepararDescifrarTexto(){
+    
+    int claveDesplazamiento;
+    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
+    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
+    
+    pedirDatos(2, claveDesplazamiento, rutaOrigen, rutaDestino);
+    
+    descifrarTexto(claveDesplazamiento, rutaOrigen, rutaDestino);
+}
 
 
