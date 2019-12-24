@@ -68,12 +68,6 @@ void ordenarClaves(const Clave infoClaves [], Clave infoClavesOrdenadas []){
  *       diccionario.dic.
  */
 void mostrarListadoClaves(const Clave infoClaves []){
-    //Nueva lista de tipo Clave para que guardemos ahi, la lista ordenada 
-    //de menor a mayor porcentaje de palabras encontradas al aplicar la clave
-    Clave infoClavesOrdenadas [TOTAL_CLAVES];
-
-    ordenarClaves(infoClaves, infoClavesOrdenadas);
-    
     //Habria que pasarle una lista de registros
     //que tuviese los campos de 
     //-Clave
@@ -95,10 +89,10 @@ void mostrarListadoClaves(const Clave infoClaves []){
     for(int i=0; i<TOTAL_CLAVES; i++){
         cout << fixed;
         cout << setw(MIN_ANCHO*2)
-             << infoClavesOrdenadas[i].valor << setw(MIN_ANCHO*3) 
-             << infoClavesOrdenadas[i].numPalabras << setw(MIN_ANCHO*3) 
+             << infoClaves[i].valor << setw(MIN_ANCHO*3) 
+             << infoClaves[i].numPalabras << setw(MIN_ANCHO*3) 
              << setprecision(1)
-             << infoClavesOrdenadas[i].porcentaje << " %" << endl;
+             << infoClaves[i].porcentaje << " %" << endl;
     }
 }
 
@@ -186,7 +180,13 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
 
 
 /**
- * PRE: ---
+ * PRE:  Se le pasa un valor entero llamado opcion, segun el valor de opcion
+ *       puede hacer dos cosas: si opcion=3, no muestra un el analisis de 
+ *       todas las claves probadas, en cambio si opcion = 4, si muestra el
+ *       analisis; tambien se le pasa una cadena de caracteres llamada ruta 
+ *       en la que se guardara la rutaOrigenConocida y rutaDestinoConocida 
+ *       del archivo a analizar, ya que asi, no se necesitara que se vuelva  
+ *       a pedir en otro metodo como podira ser descifrarAutomaticamente();   
  * POST: Funcion que se encarga de englobar todas las ordenes necesarias 
  *       para hacer el analisis de todas las posibles clave k (0 <= k < 26), 
  *       opcion 4 del menu, sabiendo el nombre del fichero (que debe estar 
@@ -194,8 +194,11 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
  *       el resultado de la funcion mostrarListadoClaves(), Si algunoo error
  *       se produce durante la lectura o escritura del archivo original/cifrado 
  *       se muestra por pantalla un error especificando el fallo.
+ *       Ademas esta funcion devuelve un entero que puede ser: un numero n cuyo
+ *       valor es 0<=n<26 para indicar cual es la clave con mas porcentaje de 
+ *       coincidencias al descifrar;
  */
-void analizarClavesAutomaticamente(){
+int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], char rutaDestinoConocida []){
     
     char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
     char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
@@ -204,6 +207,9 @@ void analizarClavesAutomaticamente(){
     strcpy(rutaDestino, RUTA_TEMP);
     
     pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_TEMP, rutaOrigen, rutaDestino);
+    
+    strcpy(rutaOrigenConocida, rutaOrigen);
+    strcpy(rutaDestinoConocida, rutaDestino);
     
     ifstream ficheroOriginal;
     
@@ -274,5 +280,29 @@ void analizarClavesAutomaticamente(){
         
     }
     
-    mostrarListadoClaves(datosClave);
+    //Nueva lista de tipo Clave para que guardemos ahi, la lista ordenada 
+    //de menor a mayor porcentaje de palabras encontradas al aplicar la clave
+    Clave infoClavesOrdenadas [TOTAL_CLAVES];
+
+    ordenarClaves(datosClave, infoClavesOrdenadas);
+    
+    if(opcion == 4){
+        mostrarListadoClaves(infoClavesOrdenadas);
+    }    
+    
+    return infoClavesOrdenadas[TOTAL_CLAVES-1].valor;
+}
+
+/**
+ * PRE:  ---
+ * POST: Funcion que llama a metodos de las otras opcion del programa, 
+ *       para poder descifrar un fichero sin que el usuario le de la clave 
+ *       solo dejandole que introduza el fichero a descifrar
+ */
+void descifrarAutomaticamente(){
+    char rutaOrigenConocida [MAX_LONG_NOMBRE_FICHERO];
+    char rutaDestinoConocida [MAX_LONG_NOMBRE_FICHERO];
+    
+    int clave  = analizarClavesAutomaticamente(3, rutaOrigenConocida, rutaDestinoConocida);
+    descifrarTexto(clave, rutaOrigenConocida, rutaDestinoConocida);
 }

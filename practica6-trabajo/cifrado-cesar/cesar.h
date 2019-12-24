@@ -36,7 +36,7 @@ const char SUFIJO_DESCIFRADO [] = "-descifrado";
 //Declaramos variables para saber si estamos en modo descifrar o cifrar
 const char MODO_CIFRAR = 'c';
 const char MODO_DESCIFRAR = 'd';
-
+const int CLAVE_SEGUN_USUARIO = -999;
 
 /**
  * PRE:  Se le pasa una cadena de texto llamada linea, un entero llamado
@@ -65,7 +65,14 @@ void cifrarTexto();
 
 
 /**
- * PRE: ---
+ * PRE:  Se le pasa la constate con nombre clave, donde se le puede pasar 
+ *       la clave con la que se va a descifrar si se invoca a esta funcion
+ *       desde otro metodo o dejar que el usuario introduzaca la que el 
+ *       quiera por teclado mas adelante en la ejecucion de esta funcion. 
+ *       Se la clave con la que se va a decifrar ya se sabe y no es necesario 
+ *       que el usuario la escirba por teclado, tambien se le pasa la cedana de 
+ *       caracteres de la rutaDestinoConocida y rutaOrigenConocida para evitar 
+ *       que tenga que volver a introducirlocomo pasaba con la clave.
  * POST: funcion que se encarga de englobar todas las ordenes necesarias 
  *       para descifrar un texto, opcion 2 del menu, sabiendo la clave de 
  *       desplazamiento y el nombre del fichero (que debe estar en la carpeta  
@@ -75,7 +82,7 @@ void cifrarTexto();
  *       escritura del archivo original/descifrado se muestra por pantalla 
  *       un error especificando el fallo. 
  */
-void descifrarTexto();
+void descifrarTexto(const int clave, const char rutaOrigenConocida [], const char rutaDestinoConocida []);
 
 
 #endif // CESAR_H_INCLUDED

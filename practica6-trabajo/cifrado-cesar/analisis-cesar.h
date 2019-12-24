@@ -81,7 +81,13 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
 
 
 /**
- * PRE: ---
+ * PRE:  Se le pasa un valor entero llamado opcion, segun el valor de opcion
+ *       puede hacer dos cosas: si opcion=3, no muestra un el analisis de 
+ *       todas las claves probadas, en cambio si opcion = 4, si muestra el
+ *       analisis; tambien se le pasa una cadena de caracteres llamada ruta 
+ *       en la que se guardara la rutaOrigenConocida y rutaDestinoConocida 
+ *       del archivo a analizar, ya que asi, no se necesitara que se vuelva  
+ *       a pedir en otro metodo como podira ser descifrarAutomaticamente();   
  * POST: Funcion que se encarga de englobar todas las ordenes necesarias 
  *       para hacer el analisis de todas las posibles clave k (0 <= k < 26), 
  *       opcion 4 del menu, sabiendo el nombre del fichero (que debe estar 
@@ -89,7 +95,19 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
  *       el resultado de la funcion mostrarListadoClaves(), Si algunoo error
  *       se produce durante la lectura o escritura del archivo original/cifrado 
  *       se muestra por pantalla un error especificando el fallo.
+ *       Ademas esta funcion devuelve un entero que puede ser: un numero n cuyo
+ *       valor es 0<=n<26 para indicar cual es la clave con mas porcentaje de 
+ *       coincidencias al descifrar;
  */
-void analizarClavesAutomaticamente();
+int analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], char rutaDestinoConocida []);
 
+
+/**
+ * PRE:  ---
+ * POST: Funcion que llama a metodos de las otras opcion del programa, 
+ *       para poder descifrar un fichero sin que el usuario le de la clave 
+ *       solo dejandole que introduza el fichero a descifrar
+ */
+void descifrarAutomaticamente();
+    
 #endif // ANALISIS_CESAR_H_INCLUDED

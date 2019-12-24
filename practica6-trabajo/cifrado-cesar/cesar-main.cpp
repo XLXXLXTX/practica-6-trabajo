@@ -43,20 +43,21 @@ void mostrarMenu(){
 void elegirOpcion(const int opcion){
     //Limpiamos la pantalla para que no se solape el menu con el mensaje de la opcion elegida
     //Funciona en la consola de windows
+    
     system ("CLS");
     
     switch(opcion){
+        char falsePath [MAX_LONG_NOMBRE_FICHERO];
         //1 --> cifrarTexto()
         case 1: //cout << "llamando a la funcion cifrarTexto() ..." << endl;
                 cifrarTexto();
                 break;
         case 2: //cout << "llamando a la funcion descifrarConClave...";
-                descifrarTexto();
+                descifrarTexto(CLAVE_SEGUN_USUARIO, falsePath, falsePath);
                 break;        
-        case 3: cout << "llamando a la funcion descifradoAutomatico() ...";
+        case 3: descifrarAutomaticamente();
                 break;
-        case 4: //cout << "llamando a la funcion analizarProbabilidad() ..." ;
-                analizarClavesAutomaticamente();
+        case 4: int k = analizarClavesAutomaticamente(4, falsePath, falsePath);
                 break;
     }
     cout << endl;
