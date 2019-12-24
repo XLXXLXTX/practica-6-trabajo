@@ -44,23 +44,16 @@ void elegirOpcion(const int opcion){
     //Limpiamos la pantalla para que no se solape el menu con el mensaje de la opcion elegida
     //Funciona en la consola de windows
     
-    system ("CLS");
+    system("CLS");
     
     switch(opcion){
-//        char falsePath [MAX_LONG_NOMBRE_FICHERO];
-        //1 --> cifrarTexto()
-        case 1: //cout << "llamando a la funcion cifrarTexto() ..." << endl;
-//                cifrarTexto();
-                prepararCifrarTexto();
+        case 1: prepararCifrarTexto();
                 break;
-        case 2: //cout << "llamando a la funcion descifrarConClave...";
-//                descifrarTexto();
-                prepararDescifrarTexto();
+        case 2: prepararDescifrarTexto();
                 break;        
-        case 3: prepararDescrifrarAutomaticamente();
+        case 3: descifrarAutomaticamente();
                 break;
-        case 4: //int k = analizarClavesAutomaticamente(4, falsePath, falsePath);
-                prepararAnalizarAutomaticamente();
+        case 4: prepararAnalizarAutomaticamente();
                 break;
     }
     cout << endl;
@@ -73,9 +66,9 @@ void elegirOpcion(const int opcion){
  *       introduce el valor 0, el programa finaliza. Mientras se introduzcan 
  *       valores fuera de los valores comprendido de n, siendo estos 0<= n <=4, 
  *       se mostrara un mensaje de error diciendo que la opcion no es valida.
- *       
  */
 void iterarMenu(){
+
     int opcion;
     do{
         mostrarMenu();
@@ -84,13 +77,16 @@ void iterarMenu(){
         cin >> opcion;
         
         if(opcion >=1 && opcion <= 4){
-            //Ejecutar las opciones de la lista
-            //cout << "Ejecutando opcion del menu ..." << endl;
             
-            //MANDAR EL NUMERO DE LA OPCION 
-            //Y EN ESTE METODO CARGAR LO NECESARIO PARA ESA OPCION
             elegirOpcion(opcion);
             
+            //PONER UN: Pulsa una tecla para volver al menu...
+            //Igual usar un system(PAUSE) o algo asi y despues
+            //usar un system(CLS) para limpiar pantalla de la ultima opcion hecha
+            
+            system("pause");
+            
+            system("CLS");
         }
         
         if( !(opcion >=1 && opcion <= 4) ){
@@ -105,15 +101,9 @@ void iterarMenu(){
  * Metodo main del programa
  */
 int main(){
-//    cifrarTexto();
-
-    setlocale(LC_CTYPE, "Spanish"); // Cambiar locale - Suficiente para máquinas Linux
-//    SetConsoleCP(1252); // Cambiar STDIN -  Para máquinas Windows
-//    SetConsoleOutputCP(1252); // Cambiar STDOUT - Para máquinas Windows
     
-//    setlocale(LC_ALL, "es_ES");
-//    cout << "ñ Ñ " << endl;
-//    cout << endl;
+    setlocale(LC_CTYPE, "Spanish"); // Cambiar locale - Suficiente para máquinas Linux
+    
     iterarMenu();
     
     return 0;

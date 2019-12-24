@@ -13,18 +13,24 @@
 
 const int MIN_ANCHO = 3;
 const int TOTAL_CLAVES = 26;
-//const char SUFIJO_TEMP [] = "-descifrado-temp";
-//const char RUTA_TEMP []= "./resultados/temp";
+
 const char SUFIJO_TEMP [] = "-descifrado";
 const char RUTA_TEMP []= "./resultados/";
 
 using namespace std;
 
+
+/**
+ * Tipo de dato creado para hacer mas facil el guardado de la informacion 
+ * referente a cada clave que se usa, para luego facilitar el analisis de 
+ * esos intentos de fuerza bruta.
+ */
 struct Clave {
     int valor;
     int numPalabras;
     double porcentaje;
 };
+
 
 /**
  * PRE:  una = A y otra = B
@@ -46,12 +52,12 @@ void ordenarClaves(const Clave infoClaves [], Clave infoClavesOrdenadas []);
 
 /**
  * PRE:  Se le pasa una vector de registros de tipo Clave el cual es constante
- *       y no se podra modificar en este metodo
+ *       y no se podra modificar en este metodo.
  * POST: Muestra por pantalla un listado con el formato mas adecuado para que 
  *       que el usuario visualice la lista de las 26 claves posibles a usar 
- *       para descifrar el fichero, con un porcentaje de exito y el numero 
- *       total de palabras de cada clave que son reconocidas en el archivo 
- *       diccionario.dic.
+ *       para descifrar el fichero, con un porcentaje de coincidencia en un 
+ *       diccionario y el numero total de palabras de cada clave que son 
+ *       reconocidas en el archivo diccionario.dic.
  */
 void mostrarListadoClaves(const Clave infoClaves []);
 
@@ -69,6 +75,7 @@ void mostrarListadoClaves(const Clave infoClaves []);
  */
 void analizarFuerzaBruta(Clave& claveAIntentar, const char rutaTemp[]);
 
+
 /**
  * PRE:  Se le pasa a esta funcion las variables claveAIntentar como
  *       constante, de donde sacamos el valor de la clave k, el flujo 
@@ -84,26 +91,24 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
 
 /**
  * PRE:  Se le pasa un valor entero llamado opcion, segun el valor de opcion
- *       puede hacer dos cosas: si opcion=3, no muestra un el analisis de 
- *       todas las claves probadas, en cambio si opcion = 4, si muestra el
- *       analisis; tambien se le pasa una cadena de caracteres llamada ruta 
- *       en la que se guardara la rutaOrigenConocida y rutaDestinoConocida 
- *       del archivo a analizar, ya que asi, no se necesitara que se vuelva  
- *       a pedir en otro metodo como podira ser descifrarAutomaticamente(),
- *       tambien se le pasa finalamente una variables donde guardaremos la 
- *       clave que mas porcentaje de exito da, que es la que esta en la ultima 
- *       posicion del vector de tipo Claves al ser ordenador para mostrarlo por 
- *       pantalla.
+ *       puede hacer dos cosas: 
+ *       si opcion=3, no muestra un el analisis de todas las claves probadas
+ *       si opcion = 4, si muestra el analisis 
+ *       Tambien se le pasan unas cadenas de caracteres llamadas rutaOrigen 
+ *       y rutaDestino en las que estan los valores del fichero original 
+ *       (rutaOrigen) a analizar y la ruta donde se van a generar los ficheros
+ *       temporales para el analisis (rutaDestino).
+ *       Finalmente, se le pasa una variable llamada claveExito, donde guardaremos 
+ *       la clave con mayor porcentaje de todas las probadas
  * POST: Funcion que se encarga de englobar todas las ordenes necesarias 
  *       para hacer el analisis de todas las posibles clave k (0 <= k < 26), 
- *       opcion 4 del menu, sabiendo el nombre del fichero (que debe estar 
- *       en la carpeta <<datos>>). Una vez acabado, se muestra por pantalla 
- *       el resultado de la funcion mostrarListadoClaves(), Si algunoo error
+ *       opcion 4 del menu.
+ *       Sabiendo la rutaOrigen y rutaDestino, una vez acabado, se muestra 
+ *       por pantalla la lista de info de las claves probadas, Si algun error
  *       se produce durante la lectura o escritura del archivo original/cifrado 
  *       se muestra por pantalla un error especificando el fallo.
- *       Ademas esta funcion devuelve un entero que puede ser: un numero n cuyo
- *       valor es 0<=n<26 para indicar cual es la clave con mas porcentaje de 
- *       coincidencias al descifrar;
+ *       Ademas esta funcion guarda un entero n cuyo valor es 0<=n<26 para 
+ *       indicar cual es la clave con mas porcentaje de coincidencias.
  */
 void analizarClavesAutomaticamente(const int opcion, char rutaOrigenConocida [], char rutaDestinoConocida [], int& claveExito);
 
@@ -119,15 +124,10 @@ void descifrarAutomaticamente();
 
 /**
  * PRE:  ---
- * POST: ---
+ * POST: Funcion que se encarga de preparar los datos para 
+ *       analizar un fichero y averiguar la clave de cifrado.
  */ 
 void prepararAnalizarAutomaticamente();
 
-
-/**
- * PRE:  ---
- * POST: ---
- */ 
-void prepararDescrifrarAutomaticamente();
 
 #endif // ANALISIS_CESAR_H_INCLUDED

@@ -6,11 +6,6 @@
 #include <iomanip>
 #include <cmath>
 
-//------------------
-#include <string>
-#include <sstream>
-//------------------
-
 #include <diccionario.h>
 #include <pedir-nombre-fichero.h>
 #include <cesar.h>
@@ -60,21 +55,16 @@ void ordenarClaves(const Clave infoClaves [], Clave infoClavesOrdenadas []){
 
 /**
  * PRE:  Se le pasa una vector de registros de tipo Clave el cual es constante
- *       y no se podra modificar en este metodo
+ *       y no se podra modificar en este metodo.
  * POST: Muestra por pantalla un listado con el formato mas adecuado para que 
  *       que el usuario visualice la lista de las 26 claves posibles a usar 
- *       para descifrar el fichero, con un porcentaje de exito y el numero 
- *       total de palabras de cada clave que son reconocidas en el archivo 
- *       diccionario.dic.
+ *       para descifrar el fichero, con un porcentaje de coincidencia en un 
+ *       diccionario y el numero total de palabras de cada clave que son 
+ *       reconocidas en el archivo diccionario.dic.
  */
 void mostrarListadoClaves(const Clave infoClaves []){
-    //Habria que pasarle una lista de registros
-    //que tuviese los campos de 
-    //-Clave
-    //-Palabras reconocidas en el diccionario.dic
-    //-Porcentaje en entre las palabras reconocias den el diccionario
-    //y el total de palabras en el archivo
-    
+   
+    //Se le pasa la lista de registro con los campos necesarios para hacer la tabla 
     
     cout << "---------------------------" << endl;
         
@@ -102,27 +92,27 @@ void mostrarListadoClaves(const Clave infoClaves []){
  *       el campo claveAIntentar.valor donde se guarda el valor de la clave k,
  *       el numero de palabras encontradas y el porcentaje de entre palabras 
  *       encontradas y el total de palabras del archvio a descifrar tambien se 
- *       le pasa como constante el vector de char [] rutaTemp que es donde 
+ *       le pasa como constante el vector de char rutaTemp [] que es donde 
  *       se generan los archivos temporales del descifrado con la clave k.
  * POST: Funcion que se encarga de analizar el archivo temporal creado para 
  *       la clave k (0 <= k < 26) a traves de la busqueda de palabras
  *       en el archivo diccionario.dicc.
  */
 void analizarFuerzaBruta(Clave& claveAIntentar, const char rutaTemp[]){
+    
     int encontradas = 0;
     int noEncontradas = 0;
     contarPalabras(rutaTemp, encontradas, noEncontradas);
     
-//    cout << "Clave: " << claveAIntentar.valor << "----> Encontradas: " << encontradas << " No encontradas: " << noEncontradas << endl;
     double porcentaje = ( encontradas / ( (double) (encontradas + noEncontradas) ) ) * 100;
     
+    //Asi evitamos que salga por pantalla el valor NaN
     if(isnan(porcentaje)){
         porcentaje = 0.00;
     }
     
     claveAIntentar.numPalabras = encontradas;
     claveAIntentar.porcentaje = porcentaje;
-    
 }
 
 
@@ -137,18 +127,7 @@ void analizarFuerzaBruta(Clave& claveAIntentar, const char rutaTemp[]){
  *       mas adelante.
  */
 void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstream& fTemp){
-//    cout << endl;
-//    cout << "----------------------------CLAVE " << claveAIntentar.valor <<"----------------------------" << endl;
-//    int k = claveAIntentar.valor;
-//    stringstream  nomArchivo;
-//    string extensionArchivo = ".txt";
-//    string claveString(1, char(k));
-//    nomArchivo << "D:/temporalesPractica6/archivoDescifrado-clave-" << k << extensionArchivo;
-//    cout << "nomArchivo --> " << nomArchivo.str() << endl; 
-//    ofstream archivoDescifrado(nomArchivo.str());
 
-    //Aqui tendriamos que probar el valor que viene en claveAIntentar.valor
-    //transformar el fichero con esa clave
     int clave = claveAIntentar.valor;
     
     char lineaADescifrar [MAX_LONG_LINEA];
@@ -163,56 +142,38 @@ void ejecutarFuerzaBruta(const Clave claveAIntentar, istream& fOriginal, ofstrea
         cifrarODescifarLinea(lineaADescifrar, clave, descifrada, MODO_DESCIFRAR);
 
         fTemp << descifrada << endl;
-        
-//        cout << "   ---   " << endl;             
-//        if(archivoDescifrado.is_open()){
-//            archivoDescifrado << descifrada << endl;
-//            cout << "   -- escrito en archivo descifrado--   " << endl;
-//        }                                   
-                    
+            
         strcpy(lineaADescifrar, vacia);
         fOriginal.getline(lineaADescifrar, MAX_LONG_LINEA);
                 
     }
-    
-//    archivoDescifrado.close();
 }
 
 
 /**
  * PRE:  Se le pasa un valor entero llamado opcion, segun el valor de opcion
- *       puede hacer dos cosas: si opcion=3, no muestra un el analisis de 
- *       todas las claves probadas, en cambio si opcion = 4, si muestra el
- *       analisis; tambien se le pasa una cadena de caracteres llamada ruta 
- *       en la que se guardara la rutaOrigenConocida y rutaDestinoConocida 
- *       del archivo a analizar, ya que asi, no se necesitara que se vuelva  
- *       a pedir en otro metodo como podira ser descifrarAutomaticamente();   
+ *       puede hacer dos cosas: 
+ *       si opcion=3, no muestra un el analisis de todas las claves probadas
+ *       si opcion = 4, si muestra el analisis 
+ *       Tambien se le pasan unas cadenas de caracteres llamadas rutaOrigen 
+ *       y rutaDestino en las que estan los valores del fichero original 
+ *       (rutaOrigen) a analizar y la ruta donde se van a generar los ficheros
+ *       temporales para el analisis (rutaDestino).
+ *       Finalmente, se le pasa una variable llamada claveExito, donde guardaremos 
+ *       la clave con mayor porcentaje de todas las probadas
  * POST: Funcion que se encarga de englobar todas las ordenes necesarias 
  *       para hacer el analisis de todas las posibles clave k (0 <= k < 26), 
- *       opcion 4 del menu, sabiendo el nombre del fichero (que debe estar 
- *       en la carpeta <<datos>>). Una vez acabado, se muestra por pantalla 
- *       el resultado de la funcion mostrarListadoClaves(), Si algunoo error
+ *       opcion 4 del menu.
+ *       Sabiendo la rutaOrigen y rutaDestino, una vez acabado, se muestra 
+ *       por pantalla la lista de info de las claves probadas, Si algun error
  *       se produce durante la lectura o escritura del archivo original/cifrado 
  *       se muestra por pantalla un error especificando el fallo.
- *       Ademas esta funcion devuelve un entero que puede ser: un numero n cuyo
- *       valor es 0<=n<26 para indicar cual es la clave con mas porcentaje de 
- *       coincidencias al descifrar;
+ *       Ademas esta funcion guarda un entero n cuyo valor es 0<=n<26 para 
+ *       indicar cual es la clave con mas porcentaje de coincidencias.
  */
 void analizarClavesAutomaticamente(const int opcion, char rutaOrigen [], char rutaDestino [], int& claveExito){
     
-//    char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
-//    char rutaDestino [MAX_LONG_NOMBRE_FICHERO];
-//    
-//    strcpy(rutaOrigen, DIR_DATOS);
-//    strcpy(rutaDestino, RUTA_TEMP);
-//    
-//    pedirNombreFichero(MSJ_OPC_2_3_4, SUFIJO_TEMP, rutaOrigen, rutaDestino);
-//    
-//    strcpy(rutaOrigenConocida, rutaOrigen);
-//    strcpy(rutaDestinoConocida, rutaDestino);
-    
     ifstream ficheroOriginal;
-    
     
     //Definimos el vector de registros de tipo Clave, donde se van a guardar la informacion
     //de las pruebas que se hara de las claves k (0 <= k < 26) 
@@ -225,61 +186,41 @@ void analizarClavesAutomaticamente(const int opcion, char rutaOrigen [], char ru
         if(!ficheroOriginal.is_open()){
             cerr << ERROR_FICH_ORIGEN << rutaOrigen << "'" << endl;
         }else{
-        
-        //Hay que crear un fichero para cada clave
-        
-        
-            
+
             //Abro el fichero del temporal de la clave k=i
-            //tanto como escritura porque es donde voy a escribir el texto cifrado con la clave k
-            //como para lectura ya que luego voy a leer las palabras que reconoce al aplicar 
-            //laa clave k al descifrar el ficheroOriginal
+            //para escritura porque es donde voy a escribir el texto cifrado con la clave 
             
-            cout << "----> rutaDestino => " << rutaDestino << endl;
+//            cout << "----> rutaDestino => " << rutaDestino << endl;
+            cout << ".";
             ofstream ficheroTemp;
             ficheroTemp.open(rutaDestino);
             
             if(!ficheroTemp.is_open()){
                 cerr << ERROR_FICH_DESTINO << rutaDestino << "'" << endl;
             }else{
-//                    cout << "Valor de i: " << i << endl;
                     
                     datosClave[i].valor = i;
-                    
-//                    cout << "Valor de datosClave[i].valor: " << datosClave[i].valor << endl;
                     
                     //Fuerza bruta con el valor de k = i
                     ejecutarFuerzaBruta(datosClave[i], ficheroOriginal, ficheroTemp);
                     ficheroTemp.close();
-                    //Ahora que ya tenemos el fichero temporal de la clave con valor k = i
-                    //podriamos leerlo para sacar las palabras y porcentaje con el diccionario
-                    //y ya tendriamos un pocision del vector de datosClave rellenado.
-                    //leer todas las palabras 
-                    //leer cuales de ellas esta en el diccionario
-                    //sacar el porcentaje de encontradas
-                    //modificar claveAIntenrar.palabras y claveAIntentar.porcentaje 
-                    
-                    //Aprovechamos que el flujo es tambien de lectura para el fichero temporal 
-                    //donde se ha escrito el contenido descifrado con la funcion ejecutarFuerzaBruta()
+                    //Como ya hemos escrito el fichero temporal con la clave intentada i, se cierra
+                    //porque ahora se va a nalizar para saber la informacion de esa clave usada
+                
+                    //Ahora le pasamos la ruta donde esta el fichero temporal descifrado con la clave i
+                    //para que analice el fichero y guarde en datosClave[i].numPalabras las palabras que
+                    //se reconocen al aplicar el cifrado y en datosClave[i].porcentaje el porcentaje 
+                    //de palabras reconocidas en todo el fichero
                     analizarFuerzaBruta(datosClave[i], rutaDestino);
+                    //Cerramos el fichero original, para que al abrirlo la siguiente iteracion
+                    //vuelva a leer desde el principio, si no se cerrase no leeria nada porque 
+                    //el curso estaria al final del archivo
                     ficheroOriginal.close();
-                    
             }
-            //Cerramos el flujo de escritura del archivo ya que no nos va a hacer falta volver a escribir en el 
-            
-            
-            //Ahora borramos el archivo temporal
+            //Ahora borramos el archivo temporal de la iteracion 
             remove(rutaDestino);
-//            if(remove(rutaDestino) == 0){
-//                cout << "Fichero temporal borrado " << endl;
-//            }else{
-//                cout << "Fichero temporal NO borrado " << endl;
-//            }
-
         }
-        
     }
-    
     //Nueva lista de tipo Clave para que guardemos ahi, la lista ordenada 
     //de menor a mayor porcentaje de palabras encontradas al aplicar la clave
     Clave infoClavesOrdenadas [TOTAL_CLAVES];
@@ -290,9 +231,12 @@ void analizarClavesAutomaticamente(const int opcion, char rutaOrigen [], char ru
         mostrarListadoClaves(infoClavesOrdenadas);
     }    
     
+    //Finalmente ahora que esta ordenada la lista, sabemos que en la ultima posicion
+    //esta la clave con mas porcentaje, asique se la asignamos a claveExito
     claveExito = infoClavesOrdenadas[TOTAL_CLAVES-1].valor;
-//    return infoClavesOrdenadas[TOTAL_CLAVES-1].valor;
+
 }
+
 
 /**
  * PRE:  ---
@@ -301,6 +245,7 @@ void analizarClavesAutomaticamente(const int opcion, char rutaOrigen [], char ru
  *       solo dejandole que introduza el fichero a descifrar
  */
 void descifrarAutomaticamente(){
+    
     int claveExito;
     int claveDesplazamiento;
     char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
@@ -315,9 +260,11 @@ void descifrarAutomaticamente(){
 
 /**
  * PRE:  ---
- * POST: ---
+ * POST: Funcion que se encarga de preparar los datos para 
+ *       analizar un fichero y averiguar la clave de cifrado.
  */
 void prepararAnalizarAutomaticamente(){
+    
     int claveExito;
     int claveDesplazamiento;
     char rutaOrigen [MAX_LONG_NOMBRE_FICHERO];
@@ -326,15 +273,4 @@ void prepararAnalizarAutomaticamente(){
     pedirDatos(4, claveDesplazamiento, rutaOrigen, rutaDestino);
     
     analizarClavesAutomaticamente(4, rutaOrigen, rutaDestino, claveExito);
-    
-//    descifrarTexto(claveDesplazamiento, rutaOrigen, rutaDestino);
-}
-
-
-/**
- * PRE:  ---
- * POST: ---
- */ 
-void prepararDescrifrarAutomaticamente(){
-   
 }

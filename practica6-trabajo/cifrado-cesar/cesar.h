@@ -37,7 +37,6 @@ const char SUFIJO_DESCIFRADO [] = "-descifrado";
 const char MODO_CIFRAR = 'c';
 const char MODO_DESCIFRAR = 'd';
 
-
 const int CLAVE_SEGUN_ANALISIS = -999;
 
 /**
@@ -53,47 +52,51 @@ void cifrarODescifarLinea(const char linea [], int desplazamiento, char lineaTra
 
 
 /**
- * PRE:  ---
- * POST: ---
+ * PRE:  Funcion a la que se le pasa:
+ *       opcion: valor de la opcion elegida por el ususario.
+ *       claveDesplazamiento: variable donde se guardara la clave, si es 
+ *       necesario que el ususario la introduzca por pantalla para el 
+ *       para el desarrollo de la opcion.
+ *       origenUsu: variable donde guardar ruta del fichero a manipular
+ *       si es necesario que el usuario lo ingrese por teclado.
+ *       destinoUsu: variable donde guardar ruta del fichero de destino
+ * POST: Funcion en la que dependiendo de la opcion, se le dan los valores
+ *       que el usuario introduce, a las variables que recibe el metodo,
+ *       para facilitar la organizacion de los datos que se envian a 
+ *       cada metodo de las opciones 
  */
  void pedirDatos(const int opcion, int& claveDesplazamiento, char origenUsu [], char destinoUsu []);
  
 
 /**
- * PRE:  Se le pasan los datos con los que se va a cifrar el texto, que son:
- *       la clave de desplazamiento, la ruta de origne del archivo y la ruta 
- *       de destino del archivo al terminar el cifrado.
+ * PRE:  Funcion a la que se le pasan tres constantes:
+ *       <<claveDesplzamiento>>: clave para el cifrado.
+ *       <<rutaOrigen>>: ruta de origen del fichero a cifrar
+ *       <<rutaDestino>>: ruta de destino del fichero cifrado
  * POST: funcion que se encarga de englobar todas las ordenes necesarias 
- *       para cifrar un texto, opcion 1 del menu, sabiendo la clave de 
- *       desplazamiento y el nombre del fichero (que debe estar en la carpeta  
- *       <<datos>>). Una vez acabado, el archivo cifrado se encuentra en 
- *       la carpeta <<resultados>> y con el nombre del archivo acabado en 
- *       "-cifrado". Si algunoo error se produce durante la lectura o 
- *       escritura del archivo original/cifrado se muestra por pantalla 
- *       un error especificando el fallo. 
+ *       para cifrar un texto, opcion 1 del menu, sabiendo <<claveDesplazamiento>>
+ *       y el la <<rutaOrigen>> del fichero. Una vez acabado, 
+ *       el archivo cifrado se encuentra en la <<rutaDestino>> y con
+ *       el nombre del archivo acabado en "-cifrado". Si algunoo error 
+ *       se produce durante la lectura o escritura del archivo original/cifrado
+ *       se muestra por pantalla un error especificando el fallo. 
  */
 void cifrarTexto(const int claveDesplazamiento, const char origenUsu [], const char destinoUsu []);
 
 
 /**
- * PRE:  Se le pasa la constate con nombre clave, donde se le puede pasar 
- *       la clave con la que se va a descifrar si se invoca a esta funcion
- *       desde otro metodo o dejar que el usuario introduzaca la que el 
- *       quiera por teclado mas adelante en la ejecucion de esta funcion. 
- *       Se la clave con la que se va a decifrar ya se sabe y no es necesario 
- *       que el usuario la escirba por teclado, tambien se le pasa la cedana de 
- *       caracteres de la rutaDestinoConocida y rutaOrigenConocida para evitar 
- *       que tenga que volver a introducirlocomo pasaba con la clave.
+ * PRE:  Funcion a la que se le pasan tres constantes:
+ *       <<claveDesplzamiento>>: clave para el descifrado.
+ *       <<rutaOrigen>>: ruta de origen del fichero a descifrar
+ *       <<rutaDestino>>: ruta de destino del fichero descifrado
  * POST: funcion que se encarga de englobar todas las ordenes necesarias 
- *       para descifrar un texto, opcion 2 del menu, sabiendo la clave de 
- *       desplazamiento y el nombre del fichero (que debe estar en la carpeta  
- *       <<datos>>). Una vez acabado, el archivo descifrado se encuentra en 
- *       la carpeta <<resultados>> y con el nombre del archivo acabado en 
- *       "-descifrado". Si algunoo error se produce durante la lectura o 
- *       escritura del archivo original/descifrado se muestra por pantalla 
- *       un error especificando el fallo. 
+ *       para descifrar un texto, opcion 2 del menu, sabiendo <<claveDesplazamiento>>
+ *       y el la <<rutaOrigen>> del fichero. Una vez acabado, 
+ *       el archivo descifrado se encuentra en la <<rutaDestino>> y con
+ *       el nombre del archivo acabado en "-descifrado". Si algunoo error 
+ *       se produce durante la lectura o escritura del archivo original/descifrado
+ *       se muestra por pantalla un error especificando el fallo. 
  */
-//void descifrarTexto(const int clave, const char rutaOrigenConocida [], const char rutaDestinoConocida []);
 void descifrarTexto(const int claveDesplazamiento, const char rutaOrigen [], const char rutaDestino []);
 
 
