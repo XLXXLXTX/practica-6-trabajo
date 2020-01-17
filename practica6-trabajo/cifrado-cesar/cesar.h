@@ -17,17 +17,17 @@ const char MSJ_OPC_1 []  = "Nombre del fichero a cifrar: ";
 const char MSJ_OPC_2_3_4 []  = "Nombre del fichero a descifrar: ";
 
 //Declaramos Mensaje de exito al acabar la opcion 1 o 2
-const char MSJ_EXITO_PT1 []  = "El contenido del fichero '";
-const char MSJ_EXITO_C_PT2 []  = "' ha sido cifrado con clave ";
-const char MSJ_EXITO_D_PT2 []  = "' ha sido descifrado con clave ";
-const char MSJ_EXITO_PT3 []  = " y almacenado en '";
+const char MSJ_EXITO_PT1 []  = "El contenido del fichero \"";
+const char MSJ_EXITO_C_PT2 []  = "\" ha sido cifrado con clave ";
+const char MSJ_EXITO_D_PT2 []  = "\" ha sido descifrado con clave ";
+const char MSJ_EXITO_PT3 []  = " y almacenado en \"";
 
 //Declaramos el texto de la clave de desplazamiento para la opcion 1 y opcion 2
 const char MSJ_CLAVE []  = "Clave de desplazamiento: ";
 
 //Declaramos lso mensajes de error al abrir/crear los ficheros
-const char ERROR_FICH_ORIGEN [] = "No se ha podido acceder al fichero '";
-const char ERROR_FICH_DESTINO [] = "No ha podido crearse el fichero '";
+const char ERROR_FICH_ORIGEN [] = "No se ha podido acceder al fichero \"";
+const char ERROR_FICH_DESTINO [] = "No ha podido crearse el fichero \"";
 
 //Declaramos los diferentes sufijos que van a tener los archivos
 const char SUFIJO_CIFRADO [] = "-cifrado";

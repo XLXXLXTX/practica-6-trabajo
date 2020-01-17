@@ -105,12 +105,7 @@ void analizarFuerzaBruta(Clave& claveAIntentar, const char rutaTemp[]){
     contarPalabras(rutaTemp, encontradas, noEncontradas);
     
     double porcentaje = ( encontradas / ( (double) (encontradas + noEncontradas) ) ) * 100;
-    
-    //Asi evitamos que salga por pantalla el valor NaN
-    if(isnan(porcentaje)){
-        porcentaje = 0.00;
-    }
-    
+     
     claveAIntentar.numPalabras = encontradas;
     claveAIntentar.porcentaje = porcentaje;
 }
@@ -191,7 +186,6 @@ void analizarClavesAutomaticamente(const int opcion, char rutaOrigen [], char ru
             //para escritura porque es donde voy a escribir el texto cifrado con la clave 
             
 //            cout << "----> rutaDestino => " << rutaDestino << endl;
-            cout << ".";
             ofstream ficheroTemp;
             ficheroTemp.open(rutaDestino);
             

@@ -27,49 +27,45 @@ using namespace std;
  *          - la extensión del fichero leído del teclado.
  */
 void pedirNombreFichero(const char mensaje[], const char interfijo[], char rutaOrigen[], char rutaDestino[]){
-    //mensaje[] --> "Inserta el nombre del fichero"
     //1º ESCRIBE POR PANTALLA <<MENSAJE>>
     cout << mensaje;
     char nombreArchivo [MAX_LONG_NOMBRE_FICHERO];
     cin >> nombreArchivo;
     
-//    //2º LEER NOMBRE DEL FICHERO
-    char rutaCompletaOrigen [MAX_LONG_NOMBRE_FICHERO];
-    
-    strcpy(rutaCompletaOrigen, rutaOrigen);
-    strcat(rutaCompletaOrigen, nombreArchivo);
-    
-    //rutaCompletaOrigen --> RUTA DEL ARCHIVO A LEER ENTERA
+    //2º LEER NOMBRE DEL FICHERO Y SE PASA A OTRA CADENA PARA HACER LOS APAÑOS DE:
+    //-Añadirle el prefijo del directorio ../datos/ a la variable "nombreArchivo"
+    //-Añadirle el sufijo de cifrado o descifrado, ademas de el prefjo de ../resultado/ a la variable "nombreArchivo"
     
     //3º CREA <<RUTA ORIGEN>>
+    char rutaCompletaOrigen [MAX_LONG_NOMBRE_FICHERO];
+    
+    //Montamos la ruta completa de origen con:
+    // ../datos/ + "nombreArchivo"
+    strcpy(rutaCompletaOrigen, rutaOrigen);
+    strcat(rutaCompletaOrigen, nombreArchivo);
    
     //4º CREA <<RUTA DESTINO>>
     char rutaCompletaDestino [MAX_LONG_NOMBRE_FICHERO];
     
     strcpy(rutaCompletaDestino, rutaOrigen);
     
-    
+    //Se puede usar strtok para delimitar el nombre del fichero y dividirlo
+    //Separamos en nombre de archivo y extension, ya que se van a añadir cosas entre ambas partes
     char* nombre = strtok(nombreArchivo, ".");
     char* extensionArchivo = strtok(NULL, ".");
     
-    
+    //Montamos la ruta completa con:
+    // ../resultados/ + "nombre" + "-cifrado"    + "."  + "extensionArchivo"
+    // ../resultados/ + "nombre" + "-descifrado" + "."  + "extensionArchivo"
     strcpy(rutaCompletaDestino, rutaDestino);
     strcat(rutaCompletaDestino, nombre);
     strcat(rutaCompletaDestino, interfijo);
     strcat(rutaCompletaDestino, ".");
     strcat(rutaCompletaDestino, extensionArchivo);
     
-//    cout << "rutaCompletaOrigen: --> " << rutaCompletaOrigen << endl;
-//    cout << "rutaCompletaDestino: --> " << rutaCompletaDestino << endl;
-    //Se puede usar strtok para delimitar el nombre del fichero y dividirlo
     
     //Se les copia a las variables la ruta completas del archivo original y del final
     strcpy(rutaOrigen, rutaCompletaOrigen);
     strcpy(rutaDestino, rutaCompletaDestino);
-    
-    
-    
-    //pchr = strtok(nombre, '.');
-    //pchr = strtok(NULL, '.')
     
 }

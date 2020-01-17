@@ -5,8 +5,8 @@
 
 //Para los caracteres especiales como ñ o Ñ
 // Añade paquete de idiomas
-#include <locale.h>
-#include <windows.h>
+//#include <locale.h>
+//#include <windows.h>
 
 //Para el system(CLS)
 #include <stdlib.h>
@@ -99,10 +99,27 @@ void iterarMenu(){
 
 /**
  * Metodo main del programa
+ * 
+ * PRE:     Para el correcto funcionamiento del programa main, debe exitir una serie
+ *          de archivos alojados en la carpeta datos que esta situada en la raiz del proyecto,
+ *          llamados: diccionario.txt en el que esten contenidas todas las palabras 
+ *          que empiezan desde la letra "a" hasta la "z", y con el formato de una palabra
+ *          por en cada linea del fichero. Tambien debe existir un fichero .txt con 
+ *          un nombre cualquiera, para poder usarlo en la ejecucion de los diferente 
+ *          opciones que tiene este programa.
+ * POST:    Habiendose cumplido la precondicion, el programa propone 4 opciones en las 
+ *          cuales, el archivo con un nombre cualquiera que introducira el usuario por teclado
+ *          sera usado para hacer lo siguiente:
+ *          -cifrar el texto de ese archivo de texto que introduce el usuario, con la clave que este elija 
+ *          -descifrar el texto de ese archivo que introduce el usuario, con la clave que este elija 
+ *          -descifrar automaticamente el archivo que el usuario introduce por teclado, 
+ *           sin darle el usuario la clave con la que hacerla
+ *          -analizar la probabilidad de todas las claves de cifrado cesar, que se pueden aplicar
+ *           al texto cifrado del archivo, para poder descifrar la mayor o totalidad de su contenido 
+ *           basandose en la palabras que se encuantran en el archivo diccionario, al descifrarlas 
+ *           con una clave determinada.
  */
 int main(){
-    
-    setlocale(LC_CTYPE, "Spanish"); // Cambiar locale - Suficiente para máquinas Linux
     
     iterarMenu();
     
