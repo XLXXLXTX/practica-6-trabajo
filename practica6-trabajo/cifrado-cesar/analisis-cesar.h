@@ -1,3 +1,9 @@
+/********************************************************************************\
+ * Programación 1. Práctica 6: Trabajo Obligatorio
+ * Autor: Javier Pardos Blesa
+ * Ultima revisión: 17 de Enero de 2020
+ * Resumen: Fichero analisis-cesar.h del proyecto "cifrado-cesar"
+\********************************************************************************/
 #ifndef ANALISIS_CESAR_H_INCLUDED
 #define ANALISIS_CESAR_H_INCLUDED
 

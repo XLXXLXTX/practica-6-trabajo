@@ -1,12 +1,13 @@
+/********************************************************************************\
+ * Programación 1. Práctica 6: Trabajo Obligatorio
+ * Autor: Javier Pardos Blesa
+ * Ultima revisión: 17 de Enero de 2020
+ * Resumen: Fichero cesar-main.cpp del proyecto "cifrado-cesar"
+\********************************************************************************/
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <iomanip>
-
-//Para los caracteres especiales como ñ o Ñ
-// Añade paquete de idiomas
-//#include <locale.h>
-//#include <windows.h>
 
 //Para el system(CLS)
 #include <stdlib.h>

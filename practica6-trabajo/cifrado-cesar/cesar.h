@@ -1,4 +1,10 @@
-﻿#ifndef CESAR_H_INCLUDED
+﻿/********************************************************************************\
+ * Programación 1. Práctica 6: Trabajo Obligatorio
+ * Autor: Javier Pardos Blesa
+ * Ultima revisión: 17 de Enero de 2020
+ * Resumen: Fichero cesar.h del proyecto "cifrado-cesar"
+\********************************************************************************/
+#ifndef CESAR_H_INCLUDED
 #define CESAR_H_INCLUDED
 
 #include <stdio.h>

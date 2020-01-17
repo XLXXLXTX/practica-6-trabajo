@@ -1,3 +1,9 @@
+/********************************************************************************\
+ * Programación 1. Práctica 6: Trabajo Obligatorio
+ * Autor: Javier Pardos Blesa
+ * Ultima revisión: 17 de Enero de 2020
+ * Resumen: Fichero pedir-nombre-fichero.cpp del proyecto "cifrado-cesar"
+\********************************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
